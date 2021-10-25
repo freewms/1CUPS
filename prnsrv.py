@@ -22,6 +22,9 @@ class S(BaseHTTPRequestHandler):
     
     def do_GET(self):        
         if self.path == '/favicon.ico':
+            self._set_response(200, 'image/jpeg')
+            with open("favicon.ico", "rb") as fout:
+                self.wfile.write(fout.read())
             return
         parsed_path = urlparse.urlparse(self.path)
         queryParams = urlparse.parse_qs(parsed_path.query)
