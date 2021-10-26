@@ -1,0 +1,102 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://example.com/object1635258134.json",
+    "title": "Root",
+    "type": "object",
+    "default": {},
+    "required": [
+        "command"
+    ],
+    "properties": {
+        "command": {
+            "$id": "#root/items/command",
+            "title": "Command",
+            "type": "string",
+            "enum": [
+                "printers_info",
+                "print_jobs",
+                "printers_stop",
+                "printers_start",
+                "queues_info",
+                "clear_jobs"                
+            ],
+            "default": "",
+            "examples": [
+                "printers_info"
+            ],
+            "pattern": "^.*$"
+        }
+    },
+    "if": {
+        "properties": {
+            "command": {
+                "enum": [
+                    "print_jobs",
+                    "printers_stop",
+                    "printers_start",
+                    "queues_info",
+                    "clear_jobs" 
+                ]
+            }
+        }
+    },
+    "then": {
+        "properties": {
+            "printers": {
+                "$id": "#root/items/printers",
+                "title": "Printers",
+                "type": "array",
+                "default": [],
+                "items": {
+                    "$id": "#root/items/printers/items",
+                    "title": "Items",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "printer_1",
+                        "printer_2"
+                    ],
+                    "pattern": "^.*$"
+                }
+            }
+        },
+        "required": [
+            "printers"
+        ]
+    },
+    "if": {
+        "properties": {
+            "command": {
+                "enum": [
+                    "print_jobs"
+                ]
+            }
+        }
+    },
+    "then": {
+        "properties": {
+            "jobs": {
+                "$id": "#root/items/jobs",
+                "title": "Jobs",
+                "type": "array",
+                "default": [],
+                "items": {
+                    "$id": "#root/items/jobs/items",
+                    "title": "Jobs",
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "job1_1",
+                        "job2_2"
+                    ],
+                    "pattern": "^.*$"
+                }
+            }
+        },
+        "required": [
+            "printers",
+            "jobs"
+        ]
+    }
+}

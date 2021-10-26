@@ -4,37 +4,65 @@ Very simple HTTP server in python for logging requests
 Usage::
     ./server.py [<port>]
 """
+from email.message import Message
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import io
+from json.decoder import JSONDecodeError
 import logging
+from types import CodeType, TracebackType
 import cups
 import base64
 import urllib.parse as urlparse
+import jsonschema
+from jsonschema.exceptions import ValidationError
+from jsonschema.validators import validators
 import markdown
+import json
+import uuid
+from jsonschema import validate
+from markdown.extensions import Extension
+
+json_schema = json.loads(open("schema.json", "r").read())
+fout = open("favicon.ico", "rb").read()
+text_help = open("README.md", "r", encoding="utf-8").read()
+loglevel = logging.DEBUG
 
 class S(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args):
-        logging.info('Request: {0}'.format(args))
-    def _set_response(self, http_code, content_type):
-        self.send_response(http_code)
-        self.send_header('Content-type', ''.join([content_type,'; charset=utf-8']))
-        self.end_headers()
-    
-    def do_GET(self):        
+        logging.info('Call: {0}'.format(args))
+           
+    def do_GET(self):
         if self.path == '/favicon.ico':
-            self._set_response(200, 'image/jpeg')
-            with open("favicon.ico", "rb") as fout:
-                self.wfile.write(fout.read())
+            msg = ResponseMsg(200, 'image/jpeg')
+            msg.setBody(fout)
+            self.send_reply(msg)
             return
-        parsed_path = urlparse.urlparse(self.path)
-        queryParams = urlparse.parse_qs(parsed_path.query)
-        logging.debug(queryParams)
-        data = commandSelector(queryParams)
-        self._set_response(200, 'text/html')
-        logging.debug(data)
-        self.wfile.write(bytes(data.encode('utf-8')))                
-                
+        msg = ResponseMsg(200, 'text/html')
+        msg.setBody(markdown.markdown(text_help, output_format='html'))
+        self.send_reply(msg)
+
     def do_POST(self):
+        try:
+            content_type = self.headers.get_content_type()
+            if content_type != 'application/json':
+                raise Exception('Content-Type header is application/json required')
+            content_length = self.headers.get('Content-Length')
+            if content_length == None:
+                raise Exception('Content-Length header is required')
+            payload = self.rfile.read(int(content_length)).decode('utf-8')
+            json_data = json.loads(payload)
+            jsonschema.validate(json_data, json_schema)
+            msg = postCommandSelector(json_data)
+        except (ValidationError, JSONDecodeError) as e:
+            msg = ResponseMsg(400)
+            msg.setBody(str(e.args[0]))
+        except Exception as e:
+            msg = ResponseMsg(400)
+            msg.setBody(str(e.args[0]))
+        self.send_reply(msg)
+        
+                
+    def do_POST2(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
         post_data = self.rfile.read(content_length) # <--- Gets the data itself
 
@@ -64,45 +92,129 @@ class S(BaseHTTPRequestHandler):
         self._set_response(200,'application/json')
         self.wfile.write('Print document succesfully'.format(content_length).encode('utf-8'))
 
-def getHelpPage(args):
-    text = ''
-    with open("README.md", "r", encoding="utf-8") as input_file:
-        text = input_file.read()
-    return markdown.markdown(text, output_format='html')
+    def send_reply(self, msg):
+        if msg.code != 200:
+            self.send_error(msg.code, msg.body)
+        else:
+            self.send_response(msg.code)
+            if msg.contentType == None:
+                self.send_header('Content-type text/plain;charset=utf-8')
+            else:
+                self.send_header('Content-type', ''.join([msg.contentType,'; charset=utf-8']))
+                            
+            self.end_headers()
+            if msg.contentType == 'image/jpeg':
+                self.wfile.write(msg.body)
+            else:    
+                self.wfile.write(msg.body.encode('utf-8'))
+      
+class ResponseMsg():
+    def __init__(self, code) -> None:
+        self.code = code
+        self.contentType = 'text/plane'
+    def setBody(self, data):
+        if self.contentType == 'application/json':
+            self.body = json.dumps(data)
+        else:
+            self.body = data
+    def setContentType(self, contentType):
+        self.contentType = contentType
     
-def getPrinterStatus(args):
-    conn = cups.Connection(host='localhost')
-    printer_name = args.get('printer_name', None)
-    if printer_name == None:
-        logging.debug('printer_name parameter is required')
-        return ''
-    if len(printer_name) == 1:
-        attr = conn.getPrinterAttributes(printer_name[0].encode('utf-8'))
+def getPrintersInfo(args):
+    printers_requested = args.get('printer_name', None)
+    try:
+        conn = cups.Connection(host='localhost')
+    except Exception as e:
+        msg = ResponseMsg(503, 'text/html')
+        msg.setBody(e.args)
+        return msg
+    if printers_requested == None:
+        printers_data = conn.getPrinters()
     else:
-        logging.critical('Too many "printer_name" parameters')
-        attr = getHelpPage(args)
-    return attr
+        printers_data = {}
+        for i in range(len(printers_requested)):
+            try:
+                attr = conn.getPrinterAttributes(printers_requested[i].encode('utf-8'))
+                printers_data.update({printers_requested[i]:attr})
+            except Exception as e:
+                printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args}})
+    msg = ResponseMsg(200, 'application/json')
+    msg.setBody(printers_data)
+    return msg
 
-def commandSelector(args):
-    switcher = {
-        'get_printer_status': getPrinterStatus,
-        'get_help_page': getHelpPage
-    }
-        
-    command = args.get('command', 'get_help_page')
-    if len(command) == 1:
-        func = switcher.get(str(command[0]), getHelpPage)
-        data = func(args)
+def commandPrintJobs(args): 
+    msg = ResponseMsg(501)
+    msg.setBody('Method not implemented yet')
+    return msg
+
+def commandPrintersStop(args):
+    msg = ResponseMsg(501)
+    msg.setBody('Method not implemented yet')
+    return msg
+
+def commandPrintersStart(args):
+    msg = ResponseMsg(501)
+    msg.setBody('Method not implemented yet')
+    return msg
+
+def commandClearJobs(args): 
+    msg = ResponseMsg(501)
+    msg.setBody('Method not implemented yet')
+    return msg
+
+def commandPrintersInfo(args): 
+    try:
+        conn = cups.Connection(host='localhost')
+    except Exception as e:
+        msg = ResponseMsg(503)
+        msg.setBody(e.args)
+        return msg
+    printers_requested = args.get('printer_name', None)
+    if printers_requested == None:
+        printers_data = conn.getPrinters()
     else:
-        logging.critical('Too many "command" parameters')
-        data = getHelpPage(args)
-    return data 
-    
+        printers_data = {}
+        for i in range(len(printers_requested)):
+            try:
+                attr = conn.getPrinterAttributes(printers_requested[i].encode('utf-8'))
+                printers_data.update({printers_requested[i]:attr})
+            except Exception as e:
+                printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args}})
+    msg = ResponseMsg(200)
+    msg.setContentType('application/json')
+    msg.setBody(printers_data)
+    return msg
+
+def commandQueuesInfo(args): 
+    msg = ResponseMsg(501)
+    msg.setBody('Method not implemented yet')
+    return msg
+
+def commandRiseError(args): 
+    msg = ResponseMsg(406)
+    msg.setBody('Unknown command')
+    return msg
+
+def postCommandSelector(args):
+    switcher = {
+        'print_jobs': commandPrintJobs,
+        'printers_stop': commandPrintersStop,
+        'printers_start': commandPrintersStart,
+        'queues_info' : commandQueuesInfo,
+        'clear_jobs': commandClearJobs,
+        'printers_info': commandPrintersInfo
+    }
+    func = switcher.get(args['command'], commandRiseError)
+    msg = func(args)
+    return msg 
+   
 def run(server_class=HTTPServer, handler_class=S, port=8080):
-    logging.basicConfig(level=logging.DEBUG,
+    logging.basicConfig(level=loglevel,
     format='[%(asctime)s] [%(levelname)s] %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S')
     server_address = ('', port)
+    handler_class.error_content_type = 'text/plain;charset=utf-8'
+    handler_class.error_message_format = '%(message)s'
     httpd = server_class(server_address, handler_class)
     logging.info('Starting print service...')
     try:
