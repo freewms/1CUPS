@@ -4,23 +4,16 @@ Very simple HTTP server in python for logging requests
 Usage::
     ./server.py [<port>]
 """
-from email.message import Message
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import io
-from json.decoder import JSONDecodeError
 import logging
-from types import CodeType, TracebackType
 import cups
 import base64
-import urllib.parse as urlparse
-import jsonschema
-from jsonschema.exceptions import ValidationError
-from jsonschema.validators import validators
 import markdown
 import json
-import uuid
-from jsonschema import validate
-from markdown.extensions import Extension
+import jsonschema
+from jsonschema import ValidationError
+from json import JSONDecodeError
 
 json_schema = json.loads(open("schema.json", "r").read())
 fout = open("favicon.ico", "rb").read()
@@ -60,38 +53,7 @@ class S(BaseHTTPRequestHandler):
             msg = ResponseMsg(400)
             msg.setBody(str(e.args[0]))
         self.send_reply(msg)
-        
-                
-    def do_POST2(self):
-        content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
-        post_data = self.rfile.read(content_length) # <--- Gets the data itself
-
-        with io.BytesIO(base64.b64decode(post_data)) as f:
-                parsed_path = urlparse.urlparse(self.path)
-                queryParams = urlparse.parse_qs(parsed_path.query)
-                keys = queryParams.keys()
-                if 'printer_name' not in keys:
-                    self._set_response(400)
-                    self.wfile.write('Printer not specified'.format(content_length).encode('utf-8'))
-                    return
-                conn = cups.Connection(host='localhost')
-                try:
-                    id = conn.createJob(queryParams['printer_name'][0], '1C', { 'document-format':cups.CUPS_FORMAT_PDF })
-                    conn.startDocument(queryParams['printer_name'][0], id, '1C', cups.CUPS_FORMAT_PDF, 1)
-                    while True:
-                        x = f.read(512)
-                        if len(x):
-                            conn.writeRequestData(x, len(x))
-                        else:
-                            break
-                    conn.finishDocument(queryParams['printer_name'][0])
-                except Exception as e:
-                    self._set_response(400, 'application/json')
-                    self.wfile.write('Document print error: {0}'.format(e).encode('utf-8'))
-                    return
-        self._set_response(200,'application/json')
-        self.wfile.write('Print document succesfully'.format(content_length).encode('utf-8'))
-
+  
     def send_reply(self, msg):
         if msg.code != 200:
             self.send_error(msg.code, msg.body)
@@ -142,9 +104,35 @@ def getPrintersInfo(args):
     msg.setBody(printers_data)
     return msg
 
-def commandPrintJobs(args): 
-    msg = ResponseMsg(501)
-    msg.setBody('Method not implemented yet')
+def commandPrintJobs(args):
+    try:
+        conn = cups.Connection(host='localhost')
+    except Exception as e:
+        msg = ResponseMsg(503)
+        msg.setBody(e.args)
+        return msg 
+    jobs = args.get('jobs', None)    
+    jobs_data = []
+    for i in range(len(jobs)):
+        doc = io.BytesIO(base64.b64decode(jobs[i].get('doc')))
+        printer = jobs[i].get('printer')
+        name = jobs[i].get('name')
+        try:
+            id = conn.createJob(printer, '1C', { 'document-format':cups.CUPS_FORMAT_PDF })
+            conn.startDocument(printer, id, '1C', cups.CUPS_FORMAT_PDF, 1)
+            while True:
+                    x = doc.read(512)
+                    if len(x):
+                        conn.writeRequestData(x, len(x))
+                    else:
+                        break
+            conn.finishDocument(printer)
+            jobs_data.append({'job' : name, 'printer': printer, 'printed': 1})
+        except Exception as e:
+                jobs_data.append({'job': name, 'printer': printer, 'printed': 0, 'desc':e.args})
+    msg = ResponseMsg(200)
+    msg.setContentType('application/json')
+    msg.setBody(jobs_data)
     return msg
 
 def commandPrintersStop(args):
@@ -169,7 +157,7 @@ def commandPrintersInfo(args):
         msg = ResponseMsg(503)
         msg.setBody(e.args)
         return msg
-    printers_requested = args.get('printer_name', None)
+    printers_requested = args.get('printers', None)
     if printers_requested == None:
         printers_data = conn.getPrinters()
     else:
@@ -179,7 +167,7 @@ def commandPrintersInfo(args):
                 attr = conn.getPrinterAttributes(printers_requested[i].encode('utf-8'))
                 printers_data.update({printers_requested[i]:attr})
             except Exception as e:
-                printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args}})
+                printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
     msg = ResponseMsg(200)
     msg.setContentType('application/json')
     msg.setBody(printers_data)
@@ -201,7 +189,7 @@ def postCommandSelector(args):
         'printers_stop': commandPrintersStop,
         'printers_start': commandPrintersStart,
         'queues_info' : commandQueuesInfo,
-        'clear_jobs': commandClearJobs,
+        'clear_queues': commandClearJobs,
         'printers_info': commandPrintersInfo
     }
     func = switcher.get(args['command'], commandRiseError)

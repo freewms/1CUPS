@@ -19,7 +19,7 @@
                 "printers_stop",
                 "printers_start",
                 "queues_info",
-                "clear_jobs"                
+                "clear_queues"                
             ],
             "default": "",
             "examples": [
@@ -32,11 +32,10 @@
         "properties": {
             "command": {
                 "enum": [
-                    "print_jobs",
                     "printers_stop",
                     "printers_start",
                     "queues_info",
-                    "clear_jobs" 
+                    "clear_queues" 
                 ]
             }
         }
@@ -52,6 +51,7 @@
                     "$id": "#root/items/printers/items",
                     "title": "Items",
                     "type": "string",
+                    "minLength": 1,
                     "default": "",
                     "examples": [
                         "printer_1",
@@ -77,25 +77,60 @@
     "then": {
         "properties": {
             "jobs": {
-                "$id": "#root/items/jobs",
-                "title": "Jobs",
+                "$id": "#root/jobs", 
+                "title": "Jobs", 
                 "type": "array",
                 "default": [],
-                "items": {
-                    "$id": "#root/items/jobs/items",
-                    "title": "Jobs",
-                    "type": "string",
-                    "default": "",
-                    "examples": [
-                        "job1_1",
-                        "job2_2"
+                "minItems": 1,
+                "uniqueItems": true,
+                "items":{
+                    "$id": "#root/jobs/items", 
+                    "title": "Items", 
+                    "type": "object",
+                    "required": [
+                        "printer",
+                        "doc",
+                        "name"
                     ],
-                    "pattern": "^.*$"
+                    "properties": {
+                        "printer": {
+                            "$id": "#root/jobs/items/printer", 
+                            "title": "Printer", 
+                            "type": "string",
+                            "default": "",
+                            "minLength": 1,
+                            "examples": [
+                                "printer"
+                            ],
+                            "pattern": "^.*$"
+                        },
+                        "doc": {
+                            "$id": "#root/jobs/items/doc", 
+                            "title": "Doc", 
+                            "type": "string",
+                            "default": "",
+                            "minLength": 1,
+                            "examples": [
+                                "Doc"
+                            ],
+                            "pattern": "^.*$"
+                        },
+                        "name": {
+                            "$id": "#root/jobs/items/name", 
+                            "title": "Name", 
+                            "type": "string",
+                            "default": "",
+                            "minLength": 1,
+                            "examples": [
+                                "Name"
+                            ],
+                            "pattern": "^.*$"
+                        }
+                    }
                 }
             }
         },
         "required": [
-            "printers",
             "jobs"
         ]
     }
