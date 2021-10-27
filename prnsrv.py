@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Very simple HTTP server in python for logging requests
-Usage::
-    ./server.py [<port>]
-"""
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import io
 import logging
@@ -18,11 +14,11 @@ from json import JSONDecodeError
 json_schema = json.loads(open("schema.json", "r").read())
 fout = open("favicon.ico", "rb").read()
 text_help = open("README.md", "r", encoding="utf-8").read()
-loglevel = logging.WARN
+loglevel = logging.INFO
 
 class S(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args):
-        logging.info('Call: {0}'.format(args))
+        logging.debug('Call: {0}'.format(args))
            
     def do_GET(self):
         if self.path == '/favicon.ico':
@@ -206,13 +202,13 @@ def run(server_class=HTTPServer, handler_class=S, port=8080):
     handler_class.error_content_type = 'text/plain;charset=utf-8'
     handler_class.error_message_format = '%(message)s'
     httpd = server_class(server_address, handler_class)
-    logging.info('Starting print service...')
+    logging.info('Starting 1CUPS service...')
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    logging.info('Stopping print service...')
+    logging.info('Stopping 1CUPS service...')
 
 if __name__ == '__main__':
     from sys import argv
