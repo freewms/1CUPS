@@ -18,7 +18,7 @@ from json import JSONDecodeError
 json_schema = json.loads(open("schema.json", "r").read())
 fout = open("favicon.ico", "rb").read()
 text_help = open("README.md", "r", encoding="utf-8").read()
-loglevel = logging.DEBUG
+loglevel = logging.WARN
 
 class S(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args):
@@ -26,11 +26,13 @@ class S(BaseHTTPRequestHandler):
            
     def do_GET(self):
         if self.path == '/favicon.ico':
-            msg = ResponseMsg(200, 'image/jpeg')
+            msg = ResponseMsg(200)
+            msg.setContentType('image/jpeg')
             msg.setBody(fout)
             self.send_reply(msg)
             return
-        msg = ResponseMsg(200, 'text/html')
+        msg = ResponseMsg(200)
+        msg.setContentType('text/html')
         msg.setBody(markdown.markdown(text_help, output_format='html'))
         self.send_reply(msg)
 
