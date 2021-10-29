@@ -8,6 +8,8 @@
 
 ## Установка:
 
+Пути указаны для ОС Debian.
+
 ```bash
 apt install libcups2-dev
 pip install markdown
