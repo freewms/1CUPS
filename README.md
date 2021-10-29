@@ -41,3 +41,7 @@ python /opt/1CUPS/1cups.py
 sudo systemctl enable 1cups
 sudo systemctl start 1cups
 ```
+
+## Использование:
+
+Обработка с примерами вызовов лежит в каталоге example
