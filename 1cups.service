@@ -1,0 +1,16 @@
+[Unit]
+Description = 1CUPS service
+After = network.target 
+ 
+[Service]
+Type = simple
+ExecStart = python3 /opt/1CUPS/1cups.py
+User = root
+Group = root
+Restart = on-failure
+SyslogIdentifier = 1CUPS
+RestartSec = 5
+TimeoutStartSec = infinity
+ 
+[Install]
+WantedBy = multi-user.target

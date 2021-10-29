@@ -6,12 +6,32 @@
 - Отправка заданий на печать на стороне сервера
 - Получение информации о принтерах из служб CUPS
 
-## Запуск:  
+## Установка:
 
-### Работа в качестве скрипта:
 ```bash
-python ./1cups.py
+apt install libcups2-dev
+pip install markdown
+pip install jsonschema
+pip uninstall cups
+pip install pycups
+git clone https://github.com/freewms/1CUPS.git
+cd ./1CUPS
+sudo mkdir /opt/1CUPS
+sudo cp ./* /opt/1CUPS
+sudo chmod +x /opt/1CUPS/1cups.py
+sudo cp ./1cups.service /etc/systemd/system/
+sudo chmod +x /etc/systemd/system/1cups.service
 ```
 
-### Работа в качестве демона:
-Описание в разработке
+## Запуск:  
+
+### В качестве скрипта:
+```bash
+python /opt/1CUPS/1cups.py
+```
+
+### В качестве демона:
+```bash
+sudo systemctl enable 1cups
+sudo systemctl start 1cups
+```

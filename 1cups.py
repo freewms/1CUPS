@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import io
+import inspect, os.path
 import logging
 import cups
 import base64
@@ -11,9 +13,11 @@ import jsonschema
 from jsonschema import ValidationError
 from json import JSONDecodeError
 
-json_schema = json.loads(open("schema.json", "r").read())
-fout = open("favicon.ico", "rb").read()
-text_help = open("README.md", "r", encoding="utf-8").read()
+filename = inspect.getframeinfo(inspect.currentframe()).filename
+file_path = os.path.dirname(os.path.abspath(filename))
+json_schema = json.loads(open(""+file_path+"/schema.json", "r").read())
+fout = open(""+file_path+"/favicon.ico", "rb").read()
+text_help = open(""+file_path+"/README.md", "r", encoding="utf-8").read()
 loglevel = logging.INFO
 
 class S(BaseHTTPRequestHandler):
@@ -54,7 +58,7 @@ class S(BaseHTTPRequestHandler):
   
     def send_reply(self, msg):
         if msg.code != 200:
-            self.send_error(msg.code, msg.body)
+            self.send_error(msg.code, str(msg.body))
         else:
             self.send_response(msg.code)
             if msg.contentType == None:
@@ -194,7 +198,7 @@ def postCommandSelector(args):
     msg = func(args)
     return msg 
    
-def run(server_class=HTTPServer, handler_class=S, port=8080):
+def start(server_class=HTTPServer, handler_class=S, port=8080):
     logging.basicConfig(level=loglevel,
     format='[%(asctime)s] [%(levelname)s] %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S')
@@ -211,9 +215,4 @@ def run(server_class=HTTPServer, handler_class=S, port=8080):
     logging.info('Stopping 1CUPS service...')
 
 if __name__ == '__main__':
-    from sys import argv
-
-    if len(argv) == 2:
-        run(port=int(argv[1]))
-    else:
-        run()
+    start()
