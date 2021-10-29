@@ -1,3 +1,7 @@
+[![Stars](https://img.shields.io/github/stars/freewms/1CUPS.svg?label=Github%20%E2%98%85&a)](https://github.com/freewms/1CUPS/stargazers)
+[![Release](https://img.shields.io/github/tag/freewms/1CUPS.svg?label=Last%20release&a)](https://github.com/freewms/1CUPS/releases)
+[![Downloads](https://img.shields.io/github/downloads/freewms/1CUPS/total)](https://github.com/freewms/1CUPS/releases)
+
 # 1CUPS
 Сервис для печати из 1С посредством CUPS
 
