@@ -137,14 +137,64 @@ def commandPrintJobs(args):
     msg.setBody(jobs_data)
     return msg
 
-def commandPrintersStop(args):
-    msg = ResponseMsg(501)
-    msg.setBody('Method not implemented yet')
+def commandPrintersEnable(args):
+    try:
+        conn = cups.Connection(host='localhost')
+    except Exception as e:
+        msg = ResponseMsg(503)
+        msg.setBody(e.args)
+        return msg
+    printers_requested = args.get('printers', None)
+    printers_data = {}
+    for i in range(len(printers_requested)):
+        try:
+            attr = conn.enablePrinter(printers_requested[i].encode('utf-8'))
+            printers_data.update({printers_requested[i]:attr})
+        except Exception as e:
+            printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
+    msg = ResponseMsg(200)
+    msg.setContentType('application/json')
+    msg.setBody(printers_data)
     return msg
 
-def commandPrintersStart(args):
-    msg = ResponseMsg(501)
-    msg.setBody('Method not implemented yet')
+def commandPrintersDisable(args):
+    try:
+        conn = cups.Connection(host='localhost')
+    except Exception as e:
+        msg = ResponseMsg(503)
+        msg.setBody(e.args)
+        return msg
+    printers_requested = args.get('printers', None)
+    printers_data = {}
+    for i in range(len(printers_requested)):
+        try:
+            attr = conn.disablePrinter(printers_requested[i].encode('utf-8'))
+            printers_data.update({printers_requested[i]:attr})
+        except Exception as e:
+            printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
+    msg = ResponseMsg(200)
+    msg.setContentType('application/json')
+    msg.setBody(printers_data)
+    return msg
+
+def commandPrintTestPage(args):
+    try:
+        conn = cups.Connection(host='localhost')
+    except Exception as e:
+        msg = ResponseMsg(503)
+        msg.setBody(e.args)
+        return msg
+    printers_requested = args.get('printers', None)
+    printers_data = {}
+    for i in range(len(printers_requested)):
+        try:
+            attr = conn.printTestPage(printers_requested[i].encode('utf-8'))
+            printers_data.update({printers_requested[i]:attr})
+        except Exception as e:
+            printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
+    msg = ResponseMsg(200)
+    msg.setContentType('application/json')
+    msg.setBody(printers_data)
     return msg
 
 def commandClearJobs(args): 
@@ -188,10 +238,11 @@ def commandRiseError(args):
 def postCommandSelector(args):
     switcher = {
         'print_jobs': commandPrintJobs,
-        'printers_stop': commandPrintersStop,
-        'printers_start': commandPrintersStart,
+        'printers_disable': commandPrintersDisable,
+        'printers_enable': commandPrintersEnable,
         'queues_info' : commandQueuesInfo,
         'clear_queues': commandClearJobs,
+        'print_test_page': commandPrintTestPage,
         'printers_info': commandPrintersInfo
     }
     func = switcher.get(args['command'], commandRiseError)

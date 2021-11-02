@@ -16,8 +16,9 @@
             "enum": [
                 "printers_info",
                 "print_jobs",
-                "printers_stop",
-                "printers_start",
+                "printers_disable",
+                "printers_enable",
+                "print_test_page",
                 "queues_info",
                 "clear_queues"                
             ],
@@ -32,8 +33,9 @@
         "properties": {
             "command": {
                 "enum": [
-                    "printers_stop",
-                    "printers_start",
+                    "printers_disable",
+                    "printers_enable",
+                    "print_test_page",
                     "queues_info",
                     "clear_queues" 
                 ]
