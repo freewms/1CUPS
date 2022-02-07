@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="9c3c9fe2-23d1-4dc0-9728-57d9c3ed1f12">
+  <producedTypes>
+    <objectType typeId="8c4e66bb-944b-4124-9f4c-4287f002ac35" valueTypeId="139d6170-d7d3-4bb5-ad3d-33ce3439892f"/>
+    <refType typeId="dc96164f-6d2f-4521-b88a-2e3ea712e7c4" valueTypeId="7ec2f48b-2532-4ad3-8ddd-524125165e30"/>
+    <selectionType typeId="8c7575de-4f11-41b9-82f7-5679ef1391db" valueTypeId="8920ee51-7d90-49cb-a9cc-abc2fd3107d1"/>
+    <listType typeId="2ca1a84e-f67f-4ffa-91f6-10240958e249" valueTypeId="f94661a5-00ee-4c5b-a8e0-a167a07879db"/>
+    <managerType typeId="d1d3bc8c-04b7-4fd2-8452-a188f9da3a90" valueTypeId="b69142d0-3686-4af9-8a13-a12615e94de4"/>
+  </producedTypes>
+  <name>Принтеры</name>
+  <synonym>
+    <key>ru</key>
+    <value>Принтеры</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <inputByString>Catalog.Принтеры.StandardAttribute.Description</inputByString>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <levelCount>2</levelCount>
+  <foldersOnTop>true</foldersOnTop>
+  <descriptionLength>50</descriptionLength>
+  <codeType>String</codeType>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+  <defaultObjectForm>Catalog.Принтеры.Form.ФормаЭлемента</defaultObjectForm>
+  <attributes uuid="2860a797-df59-4e77-905a-6203eceab218">
+    <name>СерверПечати</name>
+    <synonym>
+      <key>ru</key>
+      <value>Сервер печати</value>
+    </synonym>
+    <type>
+      <types>CatalogRef.СерверыПечати</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="4a640758-71db-466c-a800-9e2649e0595c">
+    <name>ФорматБумагиПоУмолчанию</name>
+    <synonym>
+      <key>ru</key>
+      <value>Формат бумаги по умолчанию</value>
+    </synonym>
+    <type>
+      <types>CatalogRef.ФорматыБумаги</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+  <attributes uuid="7a0eb40d-f733-45b7-93f3-afaf5a24595a">
+    <name>ОриентацияСтраницыПоУмолчанию</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ориентация страницы по умолчанию</value>
+    </synonym>
+    <type>
+      <types>EnumRef.ОриентацияСтраницы</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+  <forms uuid="0281802c-e74b-486c-a49b-d1a29d4d58d0">
+    <name>ФормаЭлемента</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма элемента</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:Catalog>

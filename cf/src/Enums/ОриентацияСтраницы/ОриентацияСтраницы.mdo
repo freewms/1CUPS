@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Enum xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="dd36df80-1b22-46ca-aa75-8611c5c9e15b">
+  <producedTypes>
+    <refType typeId="badbb613-c10d-424c-ab34-3721d55aff39" valueTypeId="de2be0d9-07a5-4f5b-9bde-3f5e55c1283b"/>
+    <listType typeId="751f26a2-d697-4675-8069-71de56feb112" valueTypeId="edcdb15b-fc6e-4105-83ad-50dd4b92b6f0"/>
+    <managerType typeId="180496be-4ec4-496c-8866-c7bd12be25d4" valueTypeId="5d41e477-a652-449f-b8fb-89da2d6e74bc"/>
+  </producedTypes>
+  <name>ОриентацияСтраницы</name>
+  <synonym>
+    <key>ru</key>
+    <value>Ориентация страницы</value>
+  </synonym>
+  <quickChoice>true</quickChoice>
+  <choiceMode>BothWays</choiceMode>
+</mdclass:Enum>

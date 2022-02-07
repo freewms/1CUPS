@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0131c4ed-7479-4bb2-aa6a-fe3cd0c916ae">
+  <producedTypes>
+    <objectType typeId="35546441-77c5-4062-9302-13036a7f3606" valueTypeId="a3f0d36c-3c63-4ce1-a06d-e62c6fd57f64"/>
+    <refType typeId="20fc01a0-cc07-41df-8e6a-7c0f74ae9882" valueTypeId="61b6e412-debb-45d9-b679-3ad879dde210"/>
+    <selectionType typeId="3bc1e6eb-b3df-46b8-84fb-9c0fb6d0a040" valueTypeId="296ec8be-30c3-46f0-b001-4ce5f2d33881"/>
+    <listType typeId="a00baf88-8b62-4797-9a57-a26e30ad85a3" valueTypeId="b5b9a599-a6a7-4f28-bae1-d8432a14cf73"/>
+    <managerType typeId="3ece969e-c65c-4a10-8bd2-621d1fc68c76" valueTypeId="cf5fba77-8529-4055-92c0-1f68bf7e81c6"/>
+  </producedTypes>
+  <name>СерверыПечати</name>
+  <synonym>
+    <key>ru</key>
+    <value>Серверы печати</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <inputByString>Catalog.СерверыПечати.StandardAttribute.Description</inputByString>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <fullTextSearch>Use</fullTextSearch>
+  <levelCount>2</levelCount>
+  <foldersOnTop>true</foldersOnTop>
+  <descriptionLength>50</descriptionLength>
+  <codeType>String</codeType>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+  <attributes uuid="ae4e5d5d-32ee-49c7-b5eb-5d25d4df4fd2">
+    <name>Хост</name>
+    <synonym>
+      <key>ru</key>
+      <value>Хост</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>10</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+  <attributes uuid="4ac214b9-9a14-4ae4-a3c2-0dd63fc97acb">
+    <name>Порт</name>
+    <synonym>
+      <key>ru</key>
+      <value>Порт</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>10</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+</mdclass:Catalog>

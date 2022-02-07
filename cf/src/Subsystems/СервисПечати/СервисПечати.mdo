@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8fdb80ed-51b5-4d2a-a623-e191827333ca">
+  <name>СервисПечати</name>
+  <synonym>
+    <key>ru</key>
+    <value>1CUPS</value>
+  </synonym>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <content>CommonModule.СервисПечатиСервер</content>
+  <content>CommonModule.СервисПечатиВызовСервера</content>
+  <content>Catalog.Принтеры</content>
+  <content>Catalog.СерверыПечати</content>
+  <content>CommonModule.СервисПечатиКлиент</content>
+  <content>CommonModule.СервисПечатиПовтИсп</content>
+  <content>Catalog.ФорматыБумаги</content>
+  <content>Enum.ОриентацияСтраницы</content>
+</mdclass:Subsystem>
