@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from ast import Raise
+from distutils import command
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import io
 import inspect, os.path
 import logging
+from unittest import case
 import cups
 import base64
 import markdown
@@ -83,28 +86,6 @@ class ResponseMsg():
             self.body = data
     def setContentType(self, contentType):
         self.contentType = contentType
-    
-def getPrintersInfo(args):
-    printers_requested = args.get('printer_name', None)
-    try:
-        conn = cups.Connection(host='localhost')
-    except Exception as e:
-        msg = ResponseMsg(503, 'text/html')
-        msg.setBody(e.args)
-        return msg
-    if printers_requested == None:
-        printers_data = conn.getPrinters()
-    else:
-        printers_data = {}
-        for i in range(len(printers_requested)):
-            try:
-                attr = conn.getPrinterAttributes(printers_requested[i].encode('utf-8'))
-                printers_data.update({printers_requested[i]:attr})
-            except Exception as e:
-                printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args}})
-    msg = ResponseMsg(200, 'application/json')
-    msg.setBody(printers_data)
-    return msg
 
 def commandPrintJobs(args):
     try:
@@ -119,9 +100,10 @@ def commandPrintJobs(args):
         doc = io.BytesIO(base64.b64decode(jobs[i].get('doc')))
         printer = jobs[i].get('printer')
         name = jobs[i].get('name')
+        ext_id = jobs[i].get('id')
         try:
-            id = conn.createJob(printer, '1C', { 'document-format':cups.CUPS_FORMAT_PDF })
-            conn.startDocument(printer, id, '1C', cups.CUPS_FORMAT_PDF, 1)
+            id = conn.createJob(printer, name, { 'document-format':cups.CUPS_FORMAT_PDF })
+            conn.startDocument(printer, id, name, cups.CUPS_FORMAT_PDF, 1)
             while True:
                     x = doc.read(512)
                     if len(x):
@@ -129,15 +111,15 @@ def commandPrintJobs(args):
                     else:
                         break
             conn.finishDocument(printer)
-            jobs_data.append({'job' : name, 'printer': printer, 'printed': 1})
+            jobs_data.append({'id' : ext_id, 'data':{'job' : name, 'printer': printer, 'printer-state': 1, 'job-id': id, 'printer-state-message' : 'job accepted'}})
         except Exception as e:
-                jobs_data.append({'job': name, 'printer': printer, 'printed': 0, 'desc':e.args})
+                jobs_data.append({'id' : ext_id, 'data':{'job': name, 'printer': printer, 'printer-state': 0, 'printer-state-message' : 'job rejected', 'printer-state-reasons':e.args}})
     msg = ResponseMsg(200)
     msg.setContentType('application/json')
     msg.setBody(jobs_data)
     return msg
 
-def commandPrintersEnable(args):
+def commandServiceCommand(args): 
     try:
         conn = cups.Connection(host='localhost')
     except Exception as e:
@@ -145,105 +127,47 @@ def commandPrintersEnable(args):
         msg.setBody(e.args)
         return msg
     printers_requested = args.get('printers', None)
-    printers_data = {}
-    for i in range(len(printers_requested)):
-        try:
-            attr = conn.enablePrinter(printers_requested[i].encode('utf-8'))
-            printers_data.update({printers_requested[i]:attr})
-        except Exception as e:
-            printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
-    msg = ResponseMsg(200)
-    msg.setContentType('application/json')
-    msg.setBody(printers_data)
-    return msg
-
-def commandPrintersDisable(args):
-    try:
-        conn = cups.Connection(host='localhost')
-    except Exception as e:
-        msg = ResponseMsg(503)
-        msg.setBody(e.args)
-        return msg
-    printers_requested = args.get('printers', None)
-    printers_data = {}
-    for i in range(len(printers_requested)):
-        try:
-            attr = conn.disablePrinter(printers_requested[i].encode('utf-8'))
-            printers_data.update({printers_requested[i]:attr})
-        except Exception as e:
-            printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
-    msg = ResponseMsg(200)
-    msg.setContentType('application/json')
-    msg.setBody(printers_data)
-    return msg
-
-def commandPrintTestPage(args):
-    try:
-        conn = cups.Connection(host='localhost')
-    except Exception as e:
-        msg = ResponseMsg(503)
-        msg.setBody(e.args)
-        return msg
-    printers_requested = args.get('printers', None)
-    printers_data = {}
-    for i in range(len(printers_requested)):
-        try:
-            attr = conn.printTestPage(printers_requested[i].encode('utf-8'))
-            printers_data.update({printers_requested[i]:attr})
-        except Exception as e:
-            printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
-    msg = ResponseMsg(200)
-    msg.setContentType('application/json')
-    msg.setBody(printers_data)
-    return msg
-
-def commandClearJobs(args): 
-    msg = ResponseMsg(501)
-    msg.setBody('Method not implemented yet')
-    return msg
-
-def commandPrintersInfo(args): 
-    try:
-        conn = cups.Connection(host='localhost')
-    except Exception as e:
-        msg = ResponseMsg(503)
-        msg.setBody(e.args)
-        return msg
-    printers_requested = args.get('printers', None)
-    if printers_requested == None:
+    printers_data = []
+    if args['command'] == 'printers_info' and printers_requested == None:
+#TODO Возвращать массив данных?      
         printers_data = conn.getPrinters()
     else:
-        printers_data = {}
         for i in range(len(printers_requested)):
+            printer = printers_requested[i].get('printer')
+            ext_id = printers_requested[i].get('id')
             try:
-                attr = conn.getPrinterAttributes(printers_requested[i].encode('utf-8'))
-                printers_data.update({printers_requested[i]:attr})
+                switcher = {
+                'printers_info' : conn.getPrinterAttributes,
+                'print_test_page' : conn.printTestPage,
+                'printers_disable' : conn.disablePrinter,
+                'printers_enable' : conn.enablePrinter,
+                'clear_queues' : commandRiseError,
+                'queues_info' : commandRiseError,
+                }
+                func = switcher.get(args['command'], commandRiseError)
+                attr = func(printer.encode('utf-8'))
+                printers_data.append({'id':ext_id, 'data':attr})
             except Exception as e:
-                printers_data.update({printers_requested[i]:{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
+                printers_data.append({'id':ext_id, 'data':{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
     msg = ResponseMsg(200)
     msg.setContentType('application/json')
     msg.setBody(printers_data)
-    return msg
-
-def commandQueuesInfo(args): 
-    msg = ResponseMsg(501)
-    msg.setBody('Method not implemented yet')
     return msg
 
 def commandRiseError(args): 
     msg = ResponseMsg(406)
-    msg.setBody('Unknown command')
+    msg.setBody('unknown command')
     return msg
 
 def postCommandSelector(args):
     switcher = {
         'print_jobs': commandPrintJobs,
-        'printers_disable': commandPrintersDisable,
-        'printers_enable': commandPrintersEnable,
-        'queues_info' : commandQueuesInfo,
-        'clear_queues': commandClearJobs,
-        'print_test_page': commandPrintTestPage,
-        'printers_info': commandPrintersInfo
+        'printers_disable': commandServiceCommand,
+        'printers_enable': commandServiceCommand,
+        'queues_info' : commandServiceCommand,
+        'clear_queues': commandServiceCommand,
+        'print_test_page': commandServiceCommand,
+        'printers_info': commandServiceCommand
     }
     func = switcher.get(args['command'], commandRiseError)
     msg = func(args)

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4baed135-3694-4fb7-b4fc-e1cfbc46b5e7">
+  <producedTypes>
+    <selectionType typeId="bd50b6b8-33fc-463b-831a-6eb9ebb7741d" valueTypeId="8e4d975c-be8b-42b4-bdf9-b43cb18f0913"/>
+    <listType typeId="2626f601-d9d0-4ff5-8a6e-9334f5240e6f" valueTypeId="fa6f967c-bb71-44d0-a1e2-f0b2e7f01010"/>
+    <managerType typeId="b09981ec-bbc8-4cc0-b013-4ecf4c4e5faf" valueTypeId="1391ec0e-6496-487f-bdd9-48ea2611b8ec"/>
+    <recordSetType typeId="fa6f9852-7c2f-41fe-83c9-1508fc5cac84" valueTypeId="d3681a0a-36ff-4577-bdca-cc7d1ff1acbf"/>
+    <recordKeyType typeId="27860362-3d39-43d1-b70f-964b9f636d37" valueTypeId="6be9c8eb-4243-477d-a005-98e50da15ff4"/>
+    <recordType typeId="1bbdf864-27fd-4d8b-89e6-e715519e5216" valueTypeId="1deb92ad-2204-40a0-aec2-3672693e6f13"/>
+    <recordManagerType typeId="a179444c-624e-40b6-9624-653b7649343c" valueTypeId="f7a738aa-581e-44af-bcf4-254ef0ad1f4c"/>
+  </producedTypes>
+  <name>СервисПечатиИстория</name>
+  <synonym>
+    <key>ru</key>
+    <value>История печати</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <defaultRecordForm>InformationRegister.СервисПечатиИстория.Form.ФормаЗаписи</defaultRecordForm>
+  <defaultListForm>InformationRegister.СервисПечатиИстория.Form.ФормаСписка</defaultListForm>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <resources uuid="3e865eed-1c3b-497a-82c6-28546e8fd50f">
+    <name>ДатаСобытия</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата события</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <indexing>Index</indexing>
+  </resources>
+  <resources uuid="68828742-bf02-49ef-9385-8c101db73c44">
+    <name>ОписаниеСобытия</name>
+    <synonym>
+      <key>ru</key>
+      <value>Описание события</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <resources uuid="c87f0a08-9e21-4258-a4d3-7a09bc26916a">
+    <name>Ошибка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ошибка</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <indexing>Index</indexing>
+  </resources>
+  <dimensions uuid="8d54a290-24c2-45d5-a5e0-3189823faf70">
+    <name>Принтер</name>
+    <synonym>
+      <key>ru</key>
+      <value>Принтер</value>
+    </synonym>
+    <type>
+      <types>CatalogRef.Принтеры</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <dimensions uuid="613fee3f-6d84-45e6-8f80-4fe2241109a4">
+    <name>ТипСобытия</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тип события</value>
+    </synonym>
+    <type>
+      <types>EnumRef.МетодыСервераПечати</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <dimensions uuid="a8bc8b80-2d86-4085-8398-327ddb50cd93">
+    <name>ДатаНачалоЧаса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дата начало часа</value>
+    </synonym>
+    <type>
+      <types>Date</types>
+      <dateQualifiers>
+        <dateFractions>Date</dateFractions>
+      </dateQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <indexing>Index</indexing>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <dimensions uuid="62287c10-0976-4b04-b33a-44770ff571d6">
+    <name>Разделитель</name>
+    <synonym>
+      <key>ru</key>
+      <value>Разделитель</value>
+    </synonym>
+    <type>
+      <types>UUID</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <denyIncompleteValues>true</denyIncompleteValues>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <forms uuid="049f1f35-c04c-43a7-bec4-f1f5c6bd6ed4">
+    <name>ФормаЗаписи</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма записи</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="7f70b9b9-20d3-40fa-9d82-9fac4c51ea54">
+    <name>ФормаСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:InformationRegister>

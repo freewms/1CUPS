@@ -21,11 +21,11 @@
   <foldersOnTop>true</foldersOnTop>
   <descriptionLength>50</descriptionLength>
   <codeType>String</codeType>
-  <codeAllowedLength>Variable</codeAllowedLength>
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.Принтеры.Form.ФормаЭлемента</defaultObjectForm>
+  <defaultListForm>Catalog.Принтеры.Form.ФормаСписка</defaultListForm>
   <attributes uuid="2860a797-df59-4e77-905a-6203eceab218">
     <name>СерверПечати</name>
     <synonym>
@@ -38,36 +38,53 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <fillValue xsi:type="core:UndefinedValue"/>
+    <indexing>Index</indexing>
   </attributes>
   <attributes uuid="4a640758-71db-466c-a800-9e2649e0595c">
-    <name>ФорматБумагиПоУмолчанию</name>
+    <name>ФорматБумаги</name>
     <synonym>
       <key>ru</key>
-      <value>Формат бумаги по умолчанию</value>
+      <value>Формат бумаги</value>
     </synonym>
     <type>
       <types>CatalogRef.ФорматыБумаги</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
     <fillValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="7a0eb40d-f733-45b7-93f3-afaf5a24595a">
-    <name>ОриентацияСтраницыПоУмолчанию</name>
+    <name>ОриентацияСтраницы</name>
     <synonym>
       <key>ru</key>
-      <value>Ориентация страницы по умолчанию</value>
+      <value>Ориентация страницы</value>
     </synonym>
     <type>
       <types>EnumRef.ОриентацияСтраницы</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
+    <fillValue xsi:type="core:ReferenceValue">
+      <value>Enum.ОриентацияСтраницы.EnumValue.Портретная</value>
+    </fillValue>
+  </attributes>
+  <attributes uuid="60299330-d648-4a9a-a830-27b7b340e4ae">
+    <name>ИмяНаСервереПечати</name>
+    <synonym>
+      <key>ru</key>
+      <value>Имя на сервере печати</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>255</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
     <fillValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
   </attributes>
   <forms uuid="0281802c-e74b-486c-a49b-d1a29d4d58d0">
     <name>ФормаЭлемента</name>
@@ -78,4 +95,26 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="1c6a7140-a36c-463f-8ccd-7a39b119366b">
+    <name>ФормаСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <commands uuid="8c6501a1-366a-43df-b0ab-c2e9161d018a">
+    <name>ТестоваяСтраница</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тестовая страница</value>
+    </synonym>
+    <group>FormCommandBarImportant</group>
+    <commandParameterType>
+      <types>CatalogRef.Принтеры</types>
+    </commandParameterType>
+    <parameterUseMode>Multiple</parameterUseMode>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:Catalog>

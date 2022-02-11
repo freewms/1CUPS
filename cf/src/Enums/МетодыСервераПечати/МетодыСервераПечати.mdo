@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Enum xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1bf0628d-0f50-4861-b5f7-4fe95a8ad065">
+  <producedTypes>
+    <refType typeId="a0aa5915-3075-466d-baaf-d625e6548998" valueTypeId="09a77c38-1501-46cd-9812-2811ee1b34d6"/>
+    <listType typeId="a07757af-b987-4b2e-a729-eb39e338a12a" valueTypeId="437cd21a-9009-4e9e-93be-aab3e3460029"/>
+    <managerType typeId="bcc4fb64-c6d7-4f02-8550-7a802b1fb355" valueTypeId="9d5ef07a-8ce1-4f5e-aab9-736e78ee01bb"/>
+  </producedTypes>
+  <name>МетодыСервераПечати</name>
+  <synonym>
+    <key>ru</key>
+    <value>Методы сервера печати</value>
+  </synonym>
+  <quickChoice>true</quickChoice>
+  <choiceMode>BothWays</choiceMode>
+  <enumValues uuid="2acc2813-cad4-4cec-82c6-74c1d9e2aa4e">
+    <name>НапечататьДокумент</name>
+    <synonym>
+      <key>ru</key>
+      <value>Напечатать документ</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="9fb7708e-4aac-4334-8762-22d2f39e69f0">
+    <name>ОстановитьПринтер</name>
+    <synonym>
+      <key>ru</key>
+      <value>Остановить принтер</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="305f6c6c-0364-4065-9ddb-c658cf722cc0">
+    <name>ЗапуститьПринтер</name>
+    <synonym>
+      <key>ru</key>
+      <value>Запустить принтер</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="9e1ff1ee-cba5-4526-8841-320f309f6167">
+    <name>ПолучитьСостояниеОчереди</name>
+    <synonym>
+      <key>ru</key>
+      <value>Получить состояние очереди</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="44352c53-b389-4563-b86f-bcf029f976f4">
+    <name>ОчиститьОчередьПечати</name>
+    <synonym>
+      <key>ru</key>
+      <value>Очистить очередь печати</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="b5d43d68-e505-4cf5-bc4b-ff61cc1168dc">
+    <name>НапечататьТестовуюСтраницу</name>
+    <synonym>
+      <key>ru</key>
+      <value>Напечатать тестовую страницу</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="5b722832-8ecd-4c6e-a189-b39afe56a753">
+    <name>ПолучитьСостояниеПринтера</name>
+    <synonym>
+      <key>ru</key>
+      <value>Получить состояние принтера</value>
+    </synonym>
+  </enumValues>
+</mdclass:Enum>

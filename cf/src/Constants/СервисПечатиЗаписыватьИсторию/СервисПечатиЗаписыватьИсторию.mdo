@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0a0c692e-2972-4e3f-b1f9-ff484ac2cffd">
+  <producedTypes>
+    <managerType typeId="6f7dd5be-7d99-47c5-9e70-0883ed53a8e6" valueTypeId="f8418994-b6cb-4233-898e-5779248dd3de"/>
+    <valueManagerType typeId="70dfe6f5-50a2-458c-9c7e-29d0286423b9" valueTypeId="37966bc1-d6c0-498b-8ea0-17d47f5d42d3"/>
+    <valueKeyType typeId="75e788d0-9888-4745-9c43-0bc2681375fe" valueTypeId="c85f5a43-560f-490f-8722-1c2629ead600"/>
+  </producedTypes>
+  <name>СервисПечатиЗаписыватьИсторию</name>
+  <synonym>
+    <key>ru</key>
+    <value>Сервис печати записывать историю</value>
+  </synonym>
+  <type>
+    <types>Boolean</types>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

@@ -12,4 +12,18 @@
   </synonym>
   <quickChoice>true</quickChoice>
   <choiceMode>BothWays</choiceMode>
+  <enumValues uuid="730eed6e-531b-4bd9-a98a-553ed35127f5">
+    <name>Портретная</name>
+    <synonym>
+      <key>ru</key>
+      <value>Портретная</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="88cc9a72-9ee1-438a-9e93-647d041b8430">
+    <name>Альбомная</name>
+    <synonym>
+      <key>ru</key>
+      <value>Альбомная</value>
+    </synonym>
+  </enumValues>
 </mdclass:Enum>

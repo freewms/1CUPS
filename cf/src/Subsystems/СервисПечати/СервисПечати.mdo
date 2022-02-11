@@ -15,4 +15,9 @@
   <content>CommonModule.СервисПечатиПовтИсп</content>
   <content>Catalog.ФорматыБумаги</content>
   <content>Enum.ОриентацияСтраницы</content>
+  <content>DataProcessor.Тест</content>
+  <content>InformationRegister.СервисПечатиИстория</content>
+  <content>Enum.МетодыСервераПечати</content>
+  <content>Constant.СервисПечатиДнейХраненияИстории</content>
+  <content>Constant.СервисПечатиЗаписыватьИсторию</content>
 </mdclass:Subsystem>
