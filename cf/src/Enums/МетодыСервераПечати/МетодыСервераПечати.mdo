@@ -33,20 +33,6 @@
       <value>Запустить принтер</value>
     </synonym>
   </enumValues>
-  <enumValues uuid="9e1ff1ee-cba5-4526-8841-320f309f6167">
-    <name>ПолучитьСостояниеОчереди</name>
-    <synonym>
-      <key>ru</key>
-      <value>Получить состояние очереди</value>
-    </synonym>
-  </enumValues>
-  <enumValues uuid="44352c53-b389-4563-b86f-bcf029f976f4">
-    <name>ОчиститьОчередьПечати</name>
-    <synonym>
-      <key>ru</key>
-      <value>Очистить очередь печати</value>
-    </synonym>
-  </enumValues>
   <enumValues uuid="b5d43d68-e505-4cf5-bc4b-ff61cc1168dc">
     <name>НапечататьТестовуюСтраницу</name>
     <synonym>

@@ -111,9 +111,9 @@ def commandPrintJobs(args):
                     else:
                         break
             conn.finishDocument(printer)
-            jobs_data.append({'id' : ext_id, 'data':{'job' : name, 'printer': printer, 'printer-state': 1, 'job-id': id, 'printer-state-message' : 'job accepted'}})
+            jobs_data.append({'id':ext_id, 'data':{'job':name, 'printer':printer, 'printer-state':1, 'job-id':id, 'printer-state-message':'job accepted'}})
         except Exception as e:
-                jobs_data.append({'id' : ext_id, 'data':{'job': name, 'printer': printer, 'printer-state': 0, 'printer-state-message' : 'job rejected', 'printer-state-reasons':e.args}})
+            jobs_data.append({'id':ext_id, 'data':{'job':name, 'printer':printer, 'printer-state':0, 'printer-state-message':'job rejected', 'printer-state-reasons':e.args}})
     msg = ResponseMsg(200)
     msg.setContentType('application/json')
     msg.setBody(jobs_data)
@@ -140,15 +140,16 @@ def commandServiceCommand(args):
                 'printers_info' : conn.getPrinterAttributes,
                 'print_test_page' : conn.printTestPage,
                 'printers_disable' : conn.disablePrinter,
-                'printers_enable' : conn.enablePrinter,
-                'clear_queues' : commandRiseError,
-                'queues_info' : commandRiseError,
+                'printers_enable' : conn.enablePrinter
                 }
                 func = switcher.get(args['command'], commandRiseError)
                 attr = func(printer.encode('utf-8'))
-                printers_data.append({'id':ext_id, 'data':attr})
+                if args['command'] == 'printers_info':
+                    printers_data.append({'id':ext_id, 'data':attr})
+                elif args['command'] == 'print_test_page':
+                    printers_data.append({'id':ext_id, 'data':{'printer-state':1, 'job-id':attr, 'printer-state-message':'job accepted'}})    
             except Exception as e:
-                printers_data.append({'id':ext_id, 'data':{'printer-state' : 0, 'printer-state-reasons' : e.args, 'printer-state-message' : 'unknown printer'}})
+                printers_data.append({'id':ext_id, 'data':{'printer-state':0, 'printer-state-reasons':e.args, 'printer-state-message':'unknown printer'}})
     msg = ResponseMsg(200)
     msg.setContentType('application/json')
     msg.setBody(printers_data)
@@ -164,8 +165,6 @@ def postCommandSelector(args):
         'print_jobs': commandPrintJobs,
         'printers_disable': commandServiceCommand,
         'printers_enable': commandServiceCommand,
-        'queues_info' : commandServiceCommand,
-        'clear_queues': commandServiceCommand,
         'print_test_page': commandServiceCommand,
         'printers_info': commandServiceCommand
     }
