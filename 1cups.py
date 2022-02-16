@@ -7,14 +7,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import io
 import inspect, os.path
 import logging
-from unittest import case
 import cups
 import base64
 import markdown
 import json
 import jsonschema
-from jsonschema import ValidationError
-from json import JSONDecodeError
 
 filename = inspect.getframeinfo(inspect.currentframe()).filename
 file_path = os.path.dirname(os.path.abspath(filename))

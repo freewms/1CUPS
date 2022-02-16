@@ -11,11 +11,9 @@
   <content>CommonModule.СервисПечатиВызовСервера</content>
   <content>Catalog.Принтеры</content>
   <content>Catalog.СерверыПечати</content>
-  <content>CommonModule.СервисПечатиКлиент</content>
   <content>CommonModule.СервисПечатиПовтИсп</content>
   <content>Catalog.ФорматыБумаги</content>
   <content>Enum.ОриентацияСтраницы</content>
-  <content>DataProcessor.Тест</content>
   <content>InformationRegister.СервисПечатиИстория</content>
   <content>Enum.МетодыСервераПечати</content>
   <content>Constant.СервисПечатиДнейХраненияИстории</content>

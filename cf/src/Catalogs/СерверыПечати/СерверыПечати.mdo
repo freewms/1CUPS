@@ -18,6 +18,10 @@
   <createOnInput>Use</createOnInput>
   <dataLockControlMode>Managed</dataLockControlMode>
   <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Серверы печати</value>
+  </objectPresentation>
   <levelCount>2</levelCount>
   <foldersOnTop>true</foldersOnTop>
   <descriptionLength>50</descriptionLength>
@@ -147,105 +151,6 @@
     <fillValue xsi:type="core:NumberValue">
       <value>30</value>
     </fillValue>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="522e3889-1bbd-4ad7-9d06-b454c723e873">
-    <name>ПроксиСервер</name>
-    <synonym>
-      <key>ru</key>
-      <value>Прокси сервер</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>25</length>
-      </stringQualifiers>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fillValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="636955c4-e86d-4694-bde0-5899bc1516b7">
-    <name>ПроксиПорт</name>
-    <synonym>
-      <key>ru</key>
-      <value>Прокси порт</value>
-    </synonym>
-    <type>
-      <types>Number</types>
-      <numberQualifiers>
-        <precision>5</precision>
-        <nonNegative>true</nonNegative>
-      </numberQualifiers>
-    </type>
-    <format>
-      <key>ru</key>
-      <value>ЧРГ=; ЧГ=</value>
-    </format>
-    <editFormat>
-      <key>ru</key>
-      <value>ЧРГ=; ЧГ=</value>
-    </editFormat>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:StringValue">
-      <value>65535</value>
-    </maxValue>
-    <fillValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="512b3a97-62ab-4a6a-8563-56413d6c5db4">
-    <name>ПроксиПользователь</name>
-    <synonym>
-      <key>ru</key>
-      <value>Прокси пользователь</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>25</length>
-      </stringQualifiers>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fillValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="df15e10b-0b94-4da8-9323-df83916e1c7a">
-    <name>ПроксиПароль</name>
-    <synonym>
-      <key>ru</key>
-      <value>Прокси пароль</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>25</length>
-      </stringQualifiers>
-    </type>
-    <passwordMode>true</passwordMode>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fillValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="a00177d6-35f4-4c42-8bbd-e55cb90463d6">
-    <name>ИспользоватьПрокси</name>
-    <synonym>
-      <key>ru</key>
-      <value>Использовать прокси</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
   </attributes>

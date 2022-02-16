@@ -42,7 +42,6 @@
   <subsystems>Subsystem.СервисПечати</subsystems>
   <commonModules>CommonModule.СервисПечатиСервер</commonModules>
   <commonModules>CommonModule.СервисПечатиВызовСервера</commonModules>
-  <commonModules>CommonModule.СервисПечатиКлиент</commonModules>
   <commonModules>CommonModule.СервисПечатиПовтИсп</commonModules>
   <constants>Constant.СервисПечатиДнейХраненияИстории</constants>
   <constants>Constant.СервисПечатиЗаписыватьИсторию</constants>
@@ -51,6 +50,5 @@
   <catalogs>Catalog.ФорматыБумаги</catalogs>
   <enums>Enum.МетодыСервераПечати</enums>
   <enums>Enum.ОриентацияСтраницы</enums>
-  <dataProcessors>DataProcessor.Тест</dataProcessors>
   <informationRegisters>InformationRegister.СервисПечатиИстория</informationRegisters>
 </mdclass:Configuration>
