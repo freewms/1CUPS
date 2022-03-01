@@ -163,4 +163,16 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="3c6eceb9-057d-43e9-888f-76b2aed10a63">
+    <name>ОбновитьПринтеры</name>
+    <synonym>
+      <key>ru</key>
+      <value>Обновить принтеры</value>
+    </synonym>
+    <group>FormCommandBarImportant</group>
+    <commandParameterType>
+      <types>CatalogRef.СерверыПечати</types>
+    </commandParameterType>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:Catalog>

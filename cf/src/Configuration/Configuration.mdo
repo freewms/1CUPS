@@ -16,6 +16,7 @@
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
+  <version>1.0.1</version>
   <usedMobileApplicationFunctionalities>
     <functionality>
       <use>true</use>
@@ -45,6 +46,9 @@
   <commonModules>CommonModule.СервисПечатиПовтИсп</commonModules>
   <constants>Constant.СервисПечатиДнейХраненияИстории</constants>
   <constants>Constant.СервисПечатиЗаписыватьИсторию</constants>
+  <constants>Constant.СервисПечатиОриентацияБумагиПоУмолчанию</constants>
+  <constants>Constant.СервисПечатиФорматБумагиПоУмолчанию</constants>
+  <commonForms>CommonForm.СервисПечатиНастройка</commonForms>
   <catalogs>Catalog.Принтеры</catalogs>
   <catalogs>Catalog.СерверыПечати</catalogs>
   <catalogs>Catalog.ФорматыБумаги</catalogs>

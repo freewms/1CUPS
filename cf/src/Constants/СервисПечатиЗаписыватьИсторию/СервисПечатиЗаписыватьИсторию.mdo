@@ -8,7 +8,7 @@
   <name>СервисПечатиЗаписыватьИсторию</name>
   <synonym>
     <key>ru</key>
-    <value>Сервис печати записывать историю</value>
+    <value>Сервис печати: записывать историю вызовов</value>
   </synonym>
   <type>
     <types>Boolean</types>

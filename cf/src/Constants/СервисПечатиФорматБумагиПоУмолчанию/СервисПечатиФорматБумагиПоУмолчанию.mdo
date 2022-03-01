@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d713cdcb-7493-44fa-ad1e-6dafc9c1cfbd">
+  <producedTypes>
+    <managerType typeId="08992ed7-141b-4ca6-aa51-f1e1a81e21e4" valueTypeId="9d645e0a-cb1b-450b-8332-58f169d4cd4c"/>
+    <valueManagerType typeId="8343bc6b-ac49-4027-b7c2-d42482fc50eb" valueTypeId="ea6b49e6-b9df-451a-88f4-acdcd8bfaa70"/>
+    <valueKeyType typeId="9300e59c-4a0d-4eca-afe5-b6c8be5ecb59" valueTypeId="7c4b3cfa-c38e-4875-b908-dbc0cda5f759"/>
+  </producedTypes>
+  <name>СервисПечатиФорматБумагиПоУмолчанию</name>
+  <synonym>
+    <key>ru</key>
+    <value>Сервис печати: формат бумаги по умолчанию</value>
+  </synonym>
+  <type>
+    <types>CatalogRef.ФорматыБумаги</types>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <fillChecking>ShowError</fillChecking>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

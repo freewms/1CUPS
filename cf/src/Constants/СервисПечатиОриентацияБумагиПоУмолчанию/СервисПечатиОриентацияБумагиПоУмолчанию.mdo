@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8c16df10-6eef-4651-bf74-cef98d8349e4">
+  <producedTypes>
+    <managerType typeId="1d796121-d968-4fd1-b6c7-ae91cd3aaf85" valueTypeId="9cfdb8ea-92f6-42b1-8f3f-59cf11eae1a1"/>
+    <valueManagerType typeId="39cc6483-7fea-43d4-a0ff-ad4d15b64725" valueTypeId="57d086b0-cfba-4235-afc0-57dbed3984e8"/>
+    <valueKeyType typeId="f18e523b-4da3-4382-8343-b08342f19381" valueTypeId="1c981a88-6d7c-4021-b54c-4a9b8558ed8b"/>
+  </producedTypes>
+  <name>СервисПечатиОриентацияБумагиПоУмолчанию</name>
+  <synonym>
+    <key>ru</key>
+    <value>Сервис печати: ориентация страниц по умолчанию</value>
+  </synonym>
+  <type>
+    <types>EnumRef.ОриентацияСтраницы</types>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <fillChecking>ShowError</fillChecking>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>

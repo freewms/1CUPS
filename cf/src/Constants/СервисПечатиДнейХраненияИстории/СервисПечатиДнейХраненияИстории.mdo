@@ -8,7 +8,7 @@
   <name>СервисПечатиДнейХраненияИстории</name>
   <synonym>
     <key>ru</key>
-    <value>Сервис печати дней хранения истории</value>
+    <value>Сервис печати: дней хранения истории вызовов</value>
   </synonym>
   <type>
     <types>Number</types>
